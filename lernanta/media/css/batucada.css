@@ -50,7 +50,8 @@ a.openid {
 
 img.member-picture,
 img.project.picture,
-img.project.media {
+img.project.media,
+img.badge-graphic {
   border: 1px solid #999;
   box-shadow: #fff 1px 1px 1px;
   -moz-box-shadow: #fff 1px 1px 1px;
@@ -106,6 +107,7 @@ button[type=submit],
     text-shadow: rgba(0,0,0,0.6) 0px -1px 0px;
     border: 1px solid #608dae;
     border-color: #608dae #405f75 #3a5568 #608dae;
+    background: #3fa3e9;
     background: -webkit-gradient(linear,0 top,0 bottom,from(#3fa3e9),to(#2171a9));
     background: -moz-linear-gradient(top,#3fa3e9,#2171a9);
     -pie-background: linear-gradient(top,#3fa3e9,#2171a9);
@@ -123,6 +125,7 @@ button[type=submit],
 button:hover,
 input[type=button]:hover,
 .button:hover{
+    background: #f6f6f6;
 	background: -moz-linear-gradient(top,#fff,#f6f6f6);
     -pie-background: linear-gradient(top,#fff,#f6f6f6);
 	background: -webkit-gradient(linear,0 top,0 bottom,from(#fff),to(#f6f6f6));
@@ -154,6 +157,7 @@ input[type=button]:active,
 .button:active {
 	padding-top: 3px;
 	padding-bottom: 1px;
+	background: #e8e8e8;
 	background: -webkit-gradient(linear,0 top,0 bottom,from(#e8e8e8),to(#f6f6f6));
 	background: -moz-linear-gradient(top,#e8e8e8,#f6f6f6);
 	-pie-background: linear-gradient(top,#e8e8e8,#f6f6f6);
@@ -161,6 +165,7 @@ input[type=button]:active,
 button[type=submit]:hover,
 input[type=submit]:hover,
 .button.submit:hover{
+    background: #42aaf5;
 	background: -moz-linear-gradient(top,#42aaf5,#3fa3e9);
     -pie-background: linear-gradient(top,#42aaf5,#3fa3e9);
 	background: -webkit-gradient(linear,0 top,0 bottom,from(#42aaf5),to(#3fa3e9));
@@ -187,6 +192,7 @@ input[type=submit]:focus,
 button[type=submit]:active,
 input[type=submit]:active,
 .button.submit:active {
+    background: #2171a9;
 	background: -webkit-gradient(linear,0 top,0 bottom,from(#2171a9),to(#3fa3e9));
     background: -moz-linear-gradient(top,#2171a9,#3fa3e9);
     -pie-background: linear-gradient(top,#2171a9,#3fa3e9);
@@ -1248,6 +1254,95 @@ header {}
   border: solid 1px #EEE;
 }
 
+.project-kind-challenge #main-people #mentorship-section {
+    background: #fbfbfb;
+    padding: 20px;
+     -webkit-border-radius: 3px;
+     -moz-border-radius: 3px;
+     -ms-border-radius: 3px;
+     -o-border-radius: 3px;
+     border-radius: 3px;
+    border: 1px solid #eee;
+}
+
+.project-kind-challenge #main-people #mentorship-section p {
+    color: #777;
+    margin-top: 10px;
+    margin-bottom: 30px;
+}
+
+.project-kind-challenge #main-people #mentorship-section h2 {
+    color: #222;
+    font-size: 22px;
+}
+
+.project-kind-challenge #main-people #mentorship-section span {
+    margin-right: 20px;
+}
+
+.project-kind-challenge #main-people #mentorship-section a.request-mentor-button,
+.project-kind-challenge #main-people #mentorship-section a.become-mentor-button {
+ display: inline;
+ margin: 0 20px 3px 0;
+ background-color: #7fbf4d;
+ background-image: -webkit-gradient(linear, left top, left bottom, from(#7fbf4d), to(#63a62f));
+ /* Saf4+, Chrome */
+ background-image: -webkit-linear-gradient(top, #7fbf4d, #63a62f);
+ background-image: -moz-linear-gradient(top, #7fbf4d, #63a62f);
+ background-image: -ms-linear-gradient(top, #7fbf4d, #63a62f);
+ background-image: -o-linear-gradient(top, #7fbf4d, #63a62f);
+ background-image: linear-gradient(top, #7fbf4d, #63a62f);
+ border: 1px solid #63a62f;
+ border-bottom: 1px solid #5b992b;
+ -webkit-border-radius: 3px;
+ -moz-border-radius: 3px;
+ -ms-border-radius: 3px;
+ -o-border-radius: 3px;
+ border-radius: 3px;
+ -webkit-box-shadow: inset 0 1px 0 0 #96ca6d;
+ -moz-box-shadow: inset 0 1px 0 0 #96ca6d;
+ -ms-box-shadow: inset 0 1px 0 0 #96ca6d;
+ -o-box-shadow: inset 0 1px 0 0 #96ca6d;
+ box-shadow: inset 0 1px 0 0 #96ca6d;
+ color: #fff;
+ font: bold 13px "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
+ line-height: 1;
+ padding: 8px 8px 9px 8px;
+ text-align: center;
+ text-shadow: 0 -1px 0 #4c9021;
+ width: 180px;
+}
+ 
+.project-kind-challenge #main-people #mentorship-section a.request-mentor-button:hover,
+.project-kind-challenge #main-people #mentorship-section a.become-mentor-button:hover {
+ background-color: #76b347;
+ background-image: -webkit-gradient(linear, left top, left bottom, from(#76b347), to(#5e9e2e));
+ /* Saf4+, Chrome */
+ background-image: -webkit-linear-gradient(top, #76b347, #5e9e2e);
+ background-image: -moz-linear-gradient(top, #76b347, #5e9e2e);
+ background-image: -ms-linear-gradient(top, #76b347, #5e9e2e);
+ background-image: -o-linear-gradient(top, #76b347, #5e9e2e);
+ background-image: linear-gradient(top, #76b347, #5e9e2e);
+ -webkit-box-shadow: inset 0 1px 0 0 #8dbf67;
+ -moz-box-shadow: inset 0 1px 0 0 #8dbf67;
+ -ms-box-shadow: inset 0 1px 0 0 #8dbf67;
+ -o-box-shadow: inset 0 1px 0 0 #8dbf67;
+ box-shadow: inset 0 1px 0 0 #8dbf67;
+ cursor: pointer;
+ text-decoration: none;
+}
+
+.project-kind-challenge #main-people #mentorship-section a.request-mentor-button:active,
+.project-kind-challenge #main-people #mentorship-section a.become-mentor-button:active {
+ border: 1px solid #5b992b;
+ border-bottom: 1px solid #538c27;
+ -webkit-box-shadow: inset 0 0 8px 4px #548c29, 0 1px 0 0 #eeeeee;
+ -moz-box-shadow: inset 0 0 8px 4px #548c29, 0 1px 0 0 #eeeeee;
+ -ms-box-shadow: inset 0 0 8px 4px #548c29, 0 1px 0 0 #eeeeee;
+ -o-box-shadow: inset 0 0 8px 4px #548c29, 0 1px 0 0 #eeeeee;
+ box-shadow: inset 0 0 8px 4px #548c29, 0 1px 0 0 #eeeeee;
+}
+
 .project-kind-challenge #main-people .break, #project_user_list.project-kind-challenge #main .break {
   border-top: solid 1px #eee;
   margin-top: 40px;
@@ -1276,6 +1371,12 @@ header {}
   margin-left: 190px;
 }
 
+.project-kind-challenge #main-people h3.peers-completed,
+#project_user_list.project-kind-challenge #main h3.peers-completed {
+  width: 300px;
+  margin-left: 140px;
+}
+
 #project_gallery #main, #project_directory #main, #school_home #main , #user_list #main, #one-column-page #main {
   width: 970px;
   margin-right: 40px;
@@ -1297,6 +1398,10 @@ header {}
       float: left;
       width: 630px;
     }
+    .project-kind-challenge .post-container {
+        margin: 0 0 20px;
+        padding: 9px;
+    }
     .modal .post-container {
         width: 550px;
         margin-left: 10px;
@@ -1313,9 +1418,23 @@ header {}
 	    width: 575px;
 	}
 
+    .project-kind-challenge .post-container .post-replies, .project-kind-challenge #extra-indent-post-replies .post-container {
+      width: 544px;
+      min-height: 56px;
+      margin: 20px 0 0 63px;
+      border-top: 1px solid #c6c6c6;
+      padding: 20px 8px 0 0;
+      behavior: url("/media/css/PIE.htc");
+      float: left;
+	}
+
     .modal .post-container.post-replies {
        margin-left: 30px;
 	   width: 530px;
+    }
+
+    .project-kind-challenge .modal .post-container .post-replies {
+       width: 480px;
     }
 
     #extra-indent-post-replies .post-container.post-replies {
@@ -1477,6 +1596,9 @@ header {}
 	#page #main .action {
 	    float: right;
 	}
+	#page.project-kind-challenge #main .action.action-bottom {
+	    float: left;
+	}
 
     #posts .post-comments {
        float: right;
@@ -1492,18 +1614,39 @@ header {}
     .supplemental_actions .action:hover {
       color: #777;
     }
-    #posts .reply-to{
+    #posts .reply-to {
 		background: url("/media/images/reply.icon.png") 0 0 no-repeat;
 	}
     #posts .delete {
 		background: url("/media/images/delete-x.png") 0 0 no-repeat;
 	}
-    #posts .restore{
+    .project-kind-challenge #posts .delete {
+		background: url("/media/images/delete-x.png") 3px 0 no-repeat;
+	}
+    #posts .restore {
 		background: url("/media/images/restore.icon.png") 0 0 no-repeat;
 	}
-    #posts .edit{
+    #posts .edit {
 		background: url("/media/images/edit.icon.png") 0 0 no-repeat;
 	}
+    .project-kind-challenge #posts .edit {
+		background: url("/media/images/edit.icon.png") 4px 0 no-repeat;
+	}
+
+    .project-kind-challenge #posts .reply-to.action-bottom, .project-kind-challenge #posts .delete.action-bottom,
+    .project-kind-challenge #posts .restore.action-bottom, .project-kind-challenge #posts .edit.action-bottom {
+        font-size: 14px;
+        float: left;
+        display: block;
+        color: #919191;
+        text-decoration: none;
+        margin: 20px 15px 0 0;
+        padding-left: 20px;
+        left: 1px;
+        height: 16px;
+        line-height: 16px;
+    }
+
     .collaborative {
         background: url("/media/images/collaborative.png") 0 0 no-repeat;
         padding-left: 42px;
@@ -1513,6 +1656,11 @@ header {}
 		background: url("/media/images/report.icon.png") 0 1px no-repeat;
 		padding-left: 15px;		
 	}
+    .project-kind-challenge #posts .report,
+	.project-kind-challenge .supplemental_actions .report,
+    .project-kind-challenge .post-container .report {
+        display: none;
+    }
 	.supplemental_actions .report {
 		background-position: 0 0;
 	}
@@ -1526,6 +1674,13 @@ header {}
     #posts .post-contents {
       padding-left: 64px;
     }
+
+      .project-kind-challenge #posts .post-details h3 {
+        color: #919191;
+        font-weight: 300;
+        font-size: 16px;
+      }
+
       #posts .post-details, #posts .post-details a {
         color: #919191;
       }
@@ -1539,6 +1694,9 @@ header {}
       
       #posts .post-body, #posts .post-body p {
         margin: 10px 0;
+      }
+      .project-kind-challenge #posts .post-body, #posts .post-body p {
+        color: #222;
       }
 
 	/* [Bugzilla - 656893] Styling pagination*/
@@ -2715,6 +2873,128 @@ ul.ui-autocomplete #ui-active-menuitem {
         background-position: 20px 20px;
     }
 
+.project-kind-challenge h1.tasks-title {
+    width: 450px;
+    font-size: 18px;
+    height: 24px;
+    padding-top: 5px;
+}
+
+.project-kind-challenge #task-nav {
+    list-style:none;
+    margin:0;
+    float:right;
+    width:180px;
+    height: 34px;
+}
+
+.project-kind-challenge #task-nav p.task-nav-header {
+    font-weight: bold;
+    width: 110px;
+    float: right;
+    color: #666;
+    text-shadow: #fff 1px 1px 0;
+    padding: 8px 15px 8px 14px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -ms-border-radius: 3px;
+    -o-border-radius: 3px;
+    border-radius: 3px;
+    display: block;
+    background: #e9e9e9 url('/media/images/arrow-down.png') no-repeat 118px center;
+}
+
+.project-kind-challenge #task-nav li {
+    float:right;
+    padding: 0;
+    margin: 0;	
+}
+
+.project-kind-challenge #task-nav li.tasks {
+    border-bottom: none;
+    margin: 0;
+    padding: 0;
+    height: 34px;
+}
+
+.project-kind-challenge #task-nav li.task-sub-nav {
+    background: #e9e9e9;
+}
+
+.project-kind-challenge #task-nav a {
+    display:block;
+    padding: 6px 0 6px 10px;
+    color:#666;
+    text-decoration:none;
+}
+
+.project-kind-challenge #task-nav a:hover{
+    color: #2084CA;
+    text-decoration:none;
+}
+
+.project-kind-challenge #task-nav ul{
+    list-style:none;
+    left:-9999px;
+}
+
+.project-kind-challenge #task-nav ul li{
+    padding-top:1px;
+    float:none;
+}
+
+.project-kind-challenge #task-nav ul a{
+    white-space:nowrap;
+}
+.project-kind-challenge #task-nav li:hover ul{ 
+    left:0;
+}
+
+.project-kind-challenge #task-nav li:hover a{
+    text-decoration:none;
+}
+
+.project-kind-challenge #task-nav li:hover ul a{
+    text-decoration:none;
+}
+
+.project-kind-challenge #task-nav ul.task-nav-list {
+    margin-top: -22px;
+    padding: 10px 0 10px 10px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -ms-border-radius: 3px;
+    -o-border-radius: 3px;
+    border-radius: 3px;
+    position: relative;
+    width: 100%;
+    float: right;
+    font-size: 13px;
+    background: #e9e9e9;
+}
+
+.project-kind-challenge #task-nav ul.task-nav-list li {
+    position: relative;
+    margin: 0;
+    padding: 0;
+}
+
+.project-kind-challenge #task-nav ul li:last-child {
+    border-bottom: none;
+}
+
+.project-kind-challenge .task-discussion {
+    margin-top: 20px;
+}
+
+.project-kind-challenge .task-discussion h1 {
+    color: #222;
+}
+
+.project-kind-challenge .task-discussion .post-task-comment {
+    float: right;
+}
+
 div.voting {
     width: 50px;
     float: right;
@@ -2771,6 +3051,7 @@ div.voting div.score {
 .project-kind-challenge #task_list_section .help-request h4 {
     color: #222222;
     font-size: 16px;
+    margin-top: 1em;
 }
 
 .project-kind-challenge #task_list_section .help-request p {
@@ -2807,6 +3088,7 @@ div.voting div.score {
  text-align: center;
  text-shadow: 0 -1px 0 #4c9021;
  width: 180px; 
+ margin-top: 10px;
 }
  
 .project-kind-challenge #task_list_section .help-request button.adopt-button:hover {
@@ -2847,6 +3129,22 @@ div.voting div.score {
     height: 20px;
     color: #fff;
 }
+
+.project-kind-challenge #task_list_section a.apply-button, .submission-show  a.assess-button {
+    -moz-border-radius: 3px 3px 3px 3px;
+    -moz-box-shadow: 0 1px 0 0 #96CA6D inset;
+    background-color: #7FBF4D;
+    background-image: -moz-linear-gradient(center top , #7FBF4D, #63A62F);
+    border-color: #63A62F #63A62F #5B992B;
+    border-style: solid;
+    border-width: 1px;
+    color: #FFFFFF;
+    font: 12px/1 "Lucida Grande","Lucida Sans Unicode","Lucida Sans",Geneva,Verdana,sans-serif;
+    padding: 7px 8px 8px;
+    text-align: center;
+    text-shadow: 0 -1px 0 #4C9021;
+    width: 260p
+ }
 
 .ui-progressbar .ui-progressbar-value {
     margin-left: -5px;
@@ -2981,6 +3279,32 @@ div.voting div.score {
     color: #bbb;
     font-weight: normal;
 }
+
+.project-kind-challenge #task_list_section .next-steps {
+    margin-top: 10px;
+    padding: 5px 0 8px 0;
+    border-top: 1px solid #eee;
+}
+
+.project-kind-challenge #task_list_section .next-steps h3 {
+    font-size: 18px;
+    margin-top: 10px;
+    margin-left: 10px;
+    color: #574A39;
+}
+
+.project-kind-challenge div.badge-list {
+    margin-top: 10px;
+}
+
+.project-kind-challenge #task_list_section .next-steps div.badge-list {
+    margin-left: 20px;
+}
+
+.project-kind-challenge #task_list_section .help-request div.badge-list {
+    margin-bottom: 10px;
+}
+
 .notice {
     text-align: center;
     margin-left: auto;
@@ -3222,4 +3546,52 @@ footer[id="footer-wrapper"] ul[class="license-info"] li:last-child {
     color: #444;
 }
 
+.submission-show .badge-card #badge-details, .submission-show .badge-card #info {
+	float: left;
+	width: 300px;
+}
 
+.submission-show #submission-details {
+	float: left;
+	width:560px;
+	margin-right:21px;
+}
+
+.submission-edit #submission_edit {
+	clear: both;
+	padding-top: 2em;
+}
+
+.submission-edit .badge-card #badge-details, .submission-edit .badge-card  #info {
+	width: 900px;
+	margin-left: 90px;
+}
+
+.submission-show .badge-card #awards, .submission-edit .badge-card #awards {
+	float:left;
+	width: 85px;
+	text-align:center;
+}
+
+.submission-show h1#page-title, .submission-show #reason {
+	padding-bottom: 1em;
+}
+
+.assessment .rating {
+	float: right;
+	font-weight: bold;
+}
+
+.assessment .final-rating {
+	font-style: italic;
+}
+
+.assessment ul li {
+	list-style: none;
+	padding-bottom: .3em;
+}
+
+.assessment-edit #submission-details {
+	float:left;
+	width:800px;
+}

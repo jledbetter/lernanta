@@ -22,7 +22,7 @@
     {% if page.listed %}<a class="button" href="{% locale_url page_delete slug=project.slug page_slug=page.slug %}">{{ _('Delete') }}</a>{% endif %}
   {% endif %}
   <a class="button" href="{% locale_url page_history slug=project.slug page_slug=page.slug %}">{{ _('View History') }}</a>
-  {% if can_comment %}
+  {% if not is_challenge and can_comment %}
     <a class="button" href="{{ new_comment_url }}">{{ _('Post Comment') }}</a>
   {% endif %}
 {% endblock %}
@@ -30,10 +30,23 @@
 {% block body %}
 {% sidebar %}
 <div id="main" class="content_page">
+  {% if is_challenge %}
+	<ul id="task-nav">
+	  <li class="tasks">
+	    <p class="task-nav-header">{{ _('Task Navigation') }}</p>
+	      <ul class="task-nav-list">
+            {% for task in all_listed_pages %}
+	          <li class="task-sub-nav"><a href="{{ task.get_absolute_url }}">{{ forloop.counter }}. {{ task.title }}</a></li>
+            {% endfor %}
+	      </ul>
+	    </li>
+	</ul>
+{% endif %}
+
 {% if user.is_authenticated %}
     <p class="supplemental_actions"><a class="report abuse action" href="{% locale_url drumbeat_abuse model="page" app_label="content" pk=page.id %}">{{_('Report Abuse')}}</a></p>
 {% endif %}
-<h1 class="{% if page.collaborative %}collaborative{% endif %} school_header">{{ page.title }}</h1>
+<h1 class="{% if page.collaborative %}collaborative{% endif %} tasks-title school_header">{{ page.title }}</h1>
 {% if is_challenge %}
   <br>{{ page.sub_header|default:"" }}
 {% endif %}
@@ -41,9 +54,21 @@
 
 {{ page.content|embed|safe }}
 
-{% if pagination_current_page.object_list %}
+{% if is_challenge %}
+  </div>
+{% endif %}
 
-<h1>{{_('Comments')}}</h1>
+{% if pagination_current_page.object_list or is_challenge %}
+
+{% if is_challenge%}
+  <div id="main" class="content_page task-discussion">
+    {% if can_comment %}
+      <a class="button post-task-comment" href="{{ new_comment_url }}">{{ _('Post Comment') }}</a>
+    {% endif %}
+    <h1 class="tasks-title">{{_('Task Discussion')}}</h1>
+{% else %}
+  <h1>{{_('Comments')}}</h1>
+{% endif %}
 <br>
 <ul id="posts">
   {% with comments=pagination_current_page.object_list %}

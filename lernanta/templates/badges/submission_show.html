@@ -1,8 +1,11 @@
 {% extends "badges/base.html" %}
 
 {% load l10n_tags %}
+{% load embed %}
 
-{% block bodyclasses %}submission edit summary{% endblock %}
+{% block title %}Application for {{ badge.name }}{% endblock %}
+
+{% block bodyclasses %}submission-show summary{% endblock %}
 
 {% block breadcrumbs %}
   <span class="arrow">&rsaquo;</span>
@@ -13,19 +16,38 @@
 
 {% block body %} 
     <div id="main">
-	    <section class="submission">
-		    <article>
-		    <h1 id="page-title">Application for {{ badge.name }} from {{ submission.author }} </h1>
-		    
-			    <div class="post-details">
-			        {{ submission.content|safe }}
-			    
-			    </div>
-		
-		    </article>
+    	<h1 id="page-title">Application for {{ badge.name }} from {{ submission.author }} </h1>
+	    <section id="submission-details">
+	    	<div id="work-url"><h3>Link to work:</h3>
+	    	<p><a href="{{ submission.url }}" target="_blank">{{submission.url}}</a></p>
+	        </div>
+	        
+	        <div id="reason"><h3>Reason:</h3>
+	        {{ submission.content|embed|safe }}
+	    	</div>
+	    	
+	    	<div id="progress"><h3>Progress:</h3>
+	    	<p>{{ progress }}</p>
+	    	</div>
 	    </section>
-	    
-	    <p><a href="">assess this badge application</a></p>
+	
+	    <section id="badge-details">
+    		{% include "badges/_badge_card.html" with badge=badge rubrics=rubrics %}
+    	</section>
+    <br class="clear"/>
+    
+    {% if can_assess %}
+       <p><a href="{% locale_url assess_submission submission_id=submission.id %}" class="assess-button" style="clear:both;">{{ _('Assess for Badge') }}</a></p>
+    {% endif %}
+
+	{% if assessments %}
+	   <h2>Assessments</h2>
+	   <ul id="posts">
+	   {% for assessment in assessments %}
+			{% include "badges/_assessment_body.html" with assessment=assessment %}
+	   {% endfor %}
+	   </ul>
+	{% endif %}
     </div>
     
 {% endblock %}

@@ -3,7 +3,7 @@ import logging
 from django import http
 from django.utils.translation import ugettext as _
 from django.conf import settings
-from django.shortcuts import render_to_response, get_object_or_404
+from django.shortcuts import render_to_response, get_object_or_404, get_list_or_404
 from django.template import RequestContext
 from django.template.loader import render_to_string
 
@@ -15,7 +15,7 @@ from l10n.urlresolvers import reverse
 
 from badges import forms as badge_forms
 from badges.pilot import get_badge_url
-from badges.models import Badge, Submission
+from badges.models import Badge, Submission, Rubric, Assessment
 
 
 log = logging.getLogger(__name__)
@@ -33,13 +33,14 @@ def show(request, slug):
     badge = get_object_or_404(Badge, slug=slug)
     user = request.user
     is_eligible = False
-    application_pending = False
+    rubrics = badge.rubrics.all()
     if user is not None:
         is_eligible = badge.is_eligible(user)
         #TODO application_pending =
     context = {
         'badge': badge,
         'is_eligible': is_eligible,
+        'rubrics': rubrics,
     }
     return render_to_response('badges/badge.html', context,
         context_instance=RequestContext(request))
@@ -86,6 +87,8 @@ def badges_manage_render_failure(request, message, status=500):
 
 @login_required
 def badges_manage(request):
+    #FIXME: Re-enable after updating integration with the OBI.
+    raise http.Http404
     profile = request.user.get_profile()
     badges_help_url = reverse('static_page_show', kwargs=dict(
             slug='assessments-and-badges'))
@@ -100,9 +103,8 @@ def badges_manage(request):
 @login_required
 def create_submission(request, slug):
     badge = get_object_or_404(Badge, slug=slug)
-
     can_apply = badge.is_eligible(request.user)
-
+    rubrics = badge.rubrics.all()
     if not can_apply:
         messages.error(request, _('You are lacking one or more of the requirements.'))
         # TODO: Reason why
@@ -126,20 +128,90 @@ def create_submission(request, slug):
 
     context = {
         'form': form,
-        'badge': badge
+        'badge': badge,
+        'rubrics': rubrics,
     }
     return render_to_response('badges/submission_edit.html', context,
                               context_instance=RequestContext(request))
 
 
-def show_submission(request, slug, submission_id):
-    badge = get_object_or_404(Badge, slug=slug)
+def show_submission(request, submission_id):
     submission = get_object_or_404(Submission, id=submission_id)
+    badge = submission.badge
+    progress = badge.progress_for(submission.author)
+    rubrics = badge.rubrics.all()
+    assessments = Assessment.objects.filter(submission=submission_id)
+    user = request.user.get_profile()
+    can_assess = True
+
+    has_assessed = Assessment.objects.filter(assessor=user, submission=submission)
+    if has_assessed or user == submission.author:
+        can_assess = False
 
     context = {
         'badge': badge,
         'submission': submission,
-    }
+        'progress': progress,
+        'rubrics': rubrics,
+        'assessments': assessments, 
+        'can_assess': can_assess,
+        }
 
     return render_to_response('badges/submission_show.html', context,
                               context_instance=RequestContext(request))
+
+
+@login_required
+def assess_submission(request, submission_id):
+    submission = get_object_or_404(Submission, id=submission_id) 
+    rubrics = submission.badge.rubrics.all()
+    user = request.user.get_profile()
+    already_assessed = Assessment.objects.filter(assessor=user, submission=submission)
+
+    if request.user == submission.author:
+        messages.error(request, _('You cannot assess your own work.'))
+        return http.HttpResponseRedirect(submission.get_absolute_url())
+    if already_assessed:
+        messages.error(request, _('You have already assessed this submission.'))
+        return http.HttpResponseRedirect(submission.get_absolute_url())
+    
+    assessment = None
+
+    if request.method == 'POST':
+        form = badge_forms.AssessmentForm(request.POST)
+        if form.is_valid():
+            assessment = form.save(commit=False)
+            if 'show_preview' not in request.POST:
+                assessment.assessor = user
+                assessment.assessed = submission.author
+                assessment.badge = submission.badge
+                assessment.submission = submission
+                assessment.save()
+                messages.success(request, _('Assessment saved. Thank you for giving your feedback to your peer!'))
+                return http.HttpResponseRedirect(submission.get_absolute_url())
+        else:
+            messages.error(request, _('Please correct errors below.'))
+    else:
+        form = badge_forms.AssessmentForm(instance=submission)
+
+    context = {
+        'form': form,
+        'submission': submission,
+        'rubrics': rubrics,
+    }
+    return render_to_response('badges/assessment_edit.html', context,
+                              context_instance=RequestContext(request))
+
+
+def show_assessment(request, assessment_id):
+    assessment = get_object_or_404(Assessment, id=assessment_id)
+    badge = assessment.badge 
+
+    context = {
+        'assessment': assessment,
+        'badge': badge,
+        }
+
+    return render_to_response('badges/_assessment_body.html', context,
+                              context_instance=RequestContext(request))
+
