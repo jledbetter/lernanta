@@ -40,10 +40,15 @@ def show(request, slug):
     if user is not None:
         is_eligible = badge.is_eligible(user)
         #TODO application_pending =
+    peer_assessment = (badge.assessment_type == Badge.PEER)
+    skill_badge = (badge.badge_type == Badge.SKILL)
+    community_badge = (badge.badge_type == Badge.COMMUNITY)
     context = {
         'badge': badge,
         'is_eligible': is_eligible,
         'rubrics': rubrics,
+        'peer_skill': peer_assessment and skill_badge,
+        'peer_community': peer_assessment and community_badge,
     }
     return render_to_response('badges/badge.html', context,
         context_instance=RequestContext(request))
@@ -228,3 +233,44 @@ def show_assessment(request, assessment_id):
     return render_to_response('badges/_assessment_body.html', context,
                               context_instance=RequestContext(request))
 
+
+@login_required
+def assess_peer(request, slug):
+    badge = get_object_or_404(Badge, slug=slug,
+        assessment_type=Badge.PEER, badge_type=Badge.COMMUNITY)
+    user = request.user.get_profile()
+    assessment = None
+    if request.method == 'POST':
+        form = badge_forms.PeerAssessmentForm(badge, user, request.POST)
+        if form.is_valid():
+            assessment = form.save(commit=False)
+            if 'show_preview' not in request.POST:
+                assessment.assessor = user
+                assessment.assessed = form.cleaned_data['peer']
+                assessment.badge = badge
+                assessment.save()
+                messages.success(request, _('Thank you for giving a badge to your peer!'))
+                return http.HttpResponseRedirect(badge.get_absolute_url())
+        else:
+            messages.error(request, _('Please correct errors below.'))
+    else:
+        form = badge_forms.PeerAssessmentForm(badge, user)
+    context = {
+        'badge': badge,
+        'assessment': assessment,
+        'form': form,
+    }
+    return render_to_response('badges/peer_assessment.html', context,
+                              context_instance=RequestContext(request))
+
+@login_required
+def matching_peers(request, slug):
+    badge = get_object_or_404(Badge, slug=slug,
+        assessment_type=Badge.PEER, badge_type=Badge.COMMUNITY)
+    if len(request.GET['term']) == 0:
+        raise http.Http404
+    peers = badge.get_peers(request.user.get_profile())
+    matching_peers = peers.filter(username__icontains=request.GET['term'])
+    json = simplejson.dumps([peer.username for peer in matching_peers])
+
+    return http.HttpResponse(json, mimetype="application/x-javascript")
