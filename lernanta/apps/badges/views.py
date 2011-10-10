@@ -254,7 +254,12 @@ def assess_peer(request, slug):
         else:
             messages.error(request, _('Please correct errors below.'))
     else:
-        form = badge_forms.PeerAssessmentForm(badge, user)
+        if 'peer' in request.GET:
+            form = badge_forms.PeerAssessmentForm(
+                badge, user, initial={'peer': request.GET['peer']})
+        else:
+            form = badge_forms.PeerAssessmentForm(
+                badge, user)
     context = {
         'badge': badge,
         'assessment': assessment,

@@ -1,5 +1,6 @@
 from django import forms
 from django.forms.models import inlineformset_factory
+from django.utils.translation import ugettext as _
 
 from users.models import UserProfile
 
